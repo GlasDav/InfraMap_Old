@@ -52,6 +52,7 @@ const MapComponent = () => {
             div.innerHTML += '<i style="background-image: url(/assets/images/icon4.png);"></i> Maritime Ports<br>';
             div.innerHTML += '<i style="background-image: url(/assets/images/icon5.png);"></i> Power Stations<br>';
             div.innerHTML += '<i style="background-image: url(/assets/images/icon6.png);"></i> Substations<br>';
+            div.innerHTML += '<i style="background-image: url(/assets/images/icon7.png);"></i> Airports<br>';
             div.innerHTML += '<i style="background-color: orange; width: 20px; height: 20px; float: left; margin-right: 8px;"></i> Electricity Transmission Lines<br>';
             div.innerHTML += '<i style="background-color: grey; width: 20px; height: 20px; float: left; margin-right: 8px;"></i> Gas Pipelines<br>';
             div.innerHTML += '<i style="background-color: black; width: 20px; height: 20px; float: left; margin-right: 8px;"></i> Oil Pipelines<br>';

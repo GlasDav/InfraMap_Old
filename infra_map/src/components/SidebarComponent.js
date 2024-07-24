@@ -15,7 +15,8 @@ const SidebarComponent = ({ toggleLayer }) => {
         { name: 'Major Roads', url: process.env.PUBLIC_URL + '/data/Major_Roads.geojson' },
         { name: 'Major Maritime Ports', url: process.env.PUBLIC_URL + '/data/Major_Maritime_Ports.geojson' },
         { name: 'Power Stations', url: process.env.PUBLIC_URL + '/data/Major_Power_Stations.geojson' },
-        { name: 'Substations', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' }
+        { name: 'Substations', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' },
+        { name: 'Airports', url: process.env.PUBLIC_URL + '/data/Airports.geojson' }
     ];
 
     const handleToggle = (name, url) => {

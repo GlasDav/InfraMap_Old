@@ -22,9 +22,9 @@ const icons = {
     }),
     'Maritime Ports': L.icon({
         iconUrl: process.env.PUBLIC_URL + '/assets/images/icon4.png',
-        iconSize: [12, 12],
-        iconAnchor: [6, 12],
-        popupAnchor: [0, -12]
+        iconSize: [20, 20],
+        iconAnchor: [10, 20],
+        popupAnchor: [0, -20]
     }),
     'Power Stations': L.icon({
         iconUrl: process.env.PUBLIC_URL + '/assets/images/icon5.png',
@@ -34,6 +34,12 @@ const icons = {
     }),
     'Substations': L.icon({
         iconUrl: process.env.PUBLIC_URL + '/assets/images/icon6.png',
+        iconSize: [10, 10],
+        iconAnchor: [5, 10],
+        popupAnchor: [0, -10]
+    }),
+    'Airports': L.icon({
+        iconUrl: process.env.PUBLIC_URL + '/assets/images/icon7.png',
         iconSize: [10, 10],
         iconAnchor: [5, 10],
         popupAnchor: [0, -10]
