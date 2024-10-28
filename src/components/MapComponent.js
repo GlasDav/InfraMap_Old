@@ -99,12 +99,14 @@ const addGeoJSONLayer = (data, type, subType, property, value, searchText, map) 
             matchesProperty = feature.properties[property] === value;
         }
 
-        // Check if searchText matches any property value in the feature
-        const matchesSearchText = searchText
-            ? Object.values(feature.properties).some(propValue =>
-                String(propValue).toLowerCase().includes(searchText.toLowerCase())
+        // Adjust searchText to handle multiple terms
+        const searchTerms = Array.isArray(searchText) ? searchText : searchText.split(',').map(term => term.trim().toLowerCase());
+
+        const matchesSearchText = searchTerms.some(term =>
+            Object.values(feature.properties).some(propValue =>
+                String(propValue).toLowerCase().includes(term)
             )
-            : true;
+        );
 
         return matchesProperty && matchesSearchText;
     };
@@ -130,6 +132,7 @@ const addGeoJSONLayer = (data, type, subType, property, value, searchText, map) 
     layer.addTo(map);
     return layer;
 };
+
 
 
 const MapComponent = ({ geoJsonFiles }) => {
@@ -248,22 +251,31 @@ const MapComponent = ({ geoJsonFiles }) => {
                 ...data,
                 features: data.features.filter(feature =>
                     searchTerms.some(term =>
-                        Object.values(feature.properties).some(prop =>
-                            String(prop).toLowerCase().includes(term)
-                        )
+                        Object.values(feature.properties).some(prop => {
+                            const propString = String(prop).toLowerCase();
+                            const termMatch = propString.includes(term);
+
+                            if (termMatch) {
+                                console.log(`Match found - Term: "${term}", Property: "${propString}"`);
+                            }
+
+                            return termMatch;
+                        })
                     )
                 )
             };
 
+            // Add filtered data to map
             const newLayer = addGeoJSONLayer(filteredData, type, subType, property, value, searchTerms.join(', '), map);
+            console.log(`Layer added to map with ${filteredData.features.length} features`);
 
+            // Update layers and activeLayers state
             setLayers(prev => ({ ...prev, [uniqueId]: newLayer }));
             setActiveLayers(prev => [...prev, uniqueId]);
         } catch (error) {
             console.error(`Error fetching GeoJSON: ${error}`);
         }
     };
-
 
 
     const toggleLayer = (type, subType, property, value, url) => {

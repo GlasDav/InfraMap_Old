@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
@@ -59,3 +60,7 @@
 #*.RTF   diff=astextplain
 public/data/Major_Roadds.geojson filter=lfs diff=lfs merge=lfs -text
 public/data/Railway_Lines.geojson filter=lfs diff=lfs merge=lfs -text
+=======
+public/data/Major_Roads.geojson filter=lfs diff=lfs merge=lfs -text
+*.geojson filter=lfs diff=lfs merge=lfs -text
+>>>>>>> a82ce12efee227daf26004967f47d65f9698eb19
