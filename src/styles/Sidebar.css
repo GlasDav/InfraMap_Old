@@ -4,11 +4,14 @@
     padding: 10px;
     background-color: #f8f8f8;
     border-right: 1px solid #ddd;
-    height: 100vh;
-    overflow-y: auto;
+    height: 100vh; /* Full viewport height */
+    overflow-y: auto; /* Only sidebar content scrolls if needed */
     position: relative;
     z-index: 1000;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; /* Ensures padding is included in the height */
 }
 
     .sidebar h3 {
@@ -80,3 +83,29 @@
         .search-input button:active {
             background-color: #003d80;
         }
+
+/* Update .clear-button to be more specific */
+.sidebar .clear-button {
+    background-color: #007bff; /* Matches the Submit button color */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: auto; /* Pushes it to the bottom */
+    display: block;
+    text-align: center;
+}
+
+    .sidebar .clear-button:hover {
+        background-color: #0056b3;
+    }
+
+    .sidebar .clear-button:active {
+        background-color: #003d80;
+    }
+
+.searchbar {
+    margin-bottom: 16px; /* Add some space between the search bar and other elements */
+}

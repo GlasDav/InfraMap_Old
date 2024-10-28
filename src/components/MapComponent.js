@@ -277,6 +277,21 @@ const MapComponent = ({ geoJsonFiles }) => {
         }
     };
 
+    const clearAllFilters = () => {
+        console.log('Clearing all filters');
+
+        // Remove all layers from the map
+        activeLayers.forEach(layerName => {
+            if (layers[layerName]) {
+                map.removeLayer(layers[layerName]);
+                console.log(`Removed layer: ${layerName}`);
+            }
+        });
+
+        // Reset states
+        setActiveLayers([]);
+        setSearchText('');
+    };
 
     const toggleLayer = (type, subType, property, value, url) => {
         fetchAndToggleLayer(type, subType, property, value, url, searchText);
@@ -289,6 +304,7 @@ const MapComponent = ({ geoJsonFiles }) => {
                 updateSearchText={setSearchText}
                 geoJsonFiles={geoJsonFiles}
                 applySearchFilter={applySearchFilter}
+                clearAllFilters={clearAllFilters} // Pass clearAllFilters as prop
             />
             <div id="map" className="map"></div>
         </div>

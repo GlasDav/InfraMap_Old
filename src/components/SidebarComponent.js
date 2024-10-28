@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import '../styles/Sidebar.css';
 
-const SidebarComponent = ({ toggleLayer, updateSearchText, geoJsonFiles, applySearchFilter }) => {
+const SidebarComponent = ({ toggleLayer, updateSearchText, geoJsonFiles, applySearchFilter, clearAllFilters }) => {
     const [activeLayers, setActiveLayers] = useState({});
     const [expandedTypes, setExpandedTypes] = useState({});
     const [searchText, setSearchText] = useState('');
 
     const handleToggle = (type, subType, property, value, url) => {
         const uniqueId = subType ? `${type}-${subType}` : type;
-        console.log(`Toggling layer: ${uniqueId}, URL: ${url}`);
         toggleLayer(type, subType, property, value, url, searchText);
         setActiveLayers(prevState => ({
             ...prevState,
@@ -27,6 +26,13 @@ const SidebarComponent = ({ toggleLayer, updateSearchText, geoJsonFiles, applySe
         const text = e.target.value;
         setSearchText(text);
         updateSearchText(text);
+    };
+
+    const handleClearAll = () => {
+        setSearchText('');
+        setActiveLayers({});
+        updateSearchText(''); // Clear search term in parent component
+        clearAllFilters();    // Reset all layers and filters
     };
 
     return (
@@ -76,6 +82,8 @@ const SidebarComponent = ({ toggleLayer, updateSearchText, geoJsonFiles, applySe
                     )}
                 </div>
             ))}
+            {/* Move the Clear All button to the bottom */}
+            <button className="clear-button" onClick={handleClearAll}>Clear All</button>
         </div>
     );
 };
