@@ -38,6 +38,12 @@ const icons = {
         iconAnchor: [5, 10],
         popupAnchor: [0, -10]
     }),
+    'Intermodal Terminals': L.icon({
+        iconUrl: process.env.PUBLIC_URL + '/assets/images/intermodal_terminal1.png',
+        iconSize: [10, 10],
+        iconAnchor: [5, 10],
+        popupAnchor: [0, -10]
+    }),
     'Airports': L.icon({
         iconUrl: process.env.PUBLIC_URL + '/assets/images/icon7.png',
         iconSize: [10, 10],

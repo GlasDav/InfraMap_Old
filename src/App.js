@@ -13,19 +13,34 @@ const geoJsonFiles = [
         ]
     },
     {
-        name: 'Transmission Lines',
+        name: 'Maritime Ports',
         subTypes: [
-            { name: 'Capacity < 132 kV', property: 'capacity_kv', value: '<132', url: process.env.PUBLIC_URL + '/data/Electricity_Transmission_Lines.geojson' },
-            { name: 'Capacity 132-220 kV', property: 'capacity_kv', value: '>=132<220', url: process.env.PUBLIC_URL + '/data/Electricity_Transmission_Lines.geojson' },
-            { name: 'Capacity 220-500 kV', property: 'capacity_kv', value: '>=220<500', url: process.env.PUBLIC_URL + '/data/Electricity_Transmission_Lines.geojson' },
-            { name: 'Capacity >= 500 kV', property: 'capacity_kv', value: '>=500', url: process.env.PUBLIC_URL + '/data/Electricity_Transmission_Lines.geojson' }
+            { name: 'Commodity', property: 'application', value: 'Commodity', url: process.env.PUBLIC_URL + '/data/Major_Maritime_Ports.geojson' },
+            { name: 'Commodity & Military', property: 'application', value: 'Commodity, Military', url: process.env.PUBLIC_URL + '/data/Major_Maritime_Ports.geojson' }
         ]
     },
     {
-        name: 'Liquid Fuel Terminals',
+        name: 'Railway Stations',
         subTypes: [
-            { name: 'Operational', property: 'operationalstatus', value: 'Operational', url: process.env.PUBLIC_URL + '/data/Liquid_Fuel_Terminals.geojson' },
-            { name: 'Decommissioned', property: 'operationalstatus', value: 'Decommissioned', url: process.env.PUBLIC_URL + '/data/Liquid_Fuel_Terminals.geojson' }
+            { name: 'Operational', property: 'operationalstatus', value: 'Operational', url: process.env.PUBLIC_URL + '/data/Railway_Stations.geojson' },
+            { name: 'Abandoned', property: 'operationalstatus', value: 'Abandoned', url: process.env.PUBLIC_URL + '/data/Railway_Stations.geojson' },
+            { name: 'Disused', property: 'operationalstatus', value: 'Disused', url: process.env.PUBLIC_URL + '/data/Railway_Stations.geojson' }
+        ]
+    },
+    {
+        name: 'Railway Lines',
+        subTypes: [
+            { name: 'Operational', property: 'operational_status', value: 'Operational', url: process.env.PUBLIC_URL + '/data/Railway_Lines.geojson' },
+            { name: 'Abandoned', property: 'operational_status', value: 'Abandoned', url: process.env.PUBLIC_URL + '/data/Railway_Lines.geojson' },
+            { name: 'Dismantled', property: 'operational_status', value: 'Dismantled', url: process.env.PUBLIC_URL + '/data/Railway_Lines.geojson' }
+        ]
+    },
+    {
+        name: 'Intermodal Terminals',
+        subTypes: [
+            { name: 'Operational', property: 'operational_status', value: 'Operational', url: process.env.PUBLIC_URL + '/data/Intermodal_Terminals.geojson' },
+            { name: 'Proposed', property: 'operational_status', value: 'Proposed', url: process.env.PUBLIC_URL + '/data/Intermodal_Terminals.geojson' },
+            { name: 'Closed', property: 'operational_status', value: 'Closed', url: process.env.PUBLIC_URL + '/data/Intermodal_Terminals.geojson' }
         ]
     },
     {
@@ -44,6 +59,32 @@ const geoJsonFiles = [
         ]
     },
     {
+        name: 'Transmission Substation',
+        subTypes: [
+            { name: 'Substations', property: 'classification', value: 'Substations', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' },
+            { name: 'Zone', property: 'classification', value: 'Zone', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' },
+            { name: 'Terminal', property: 'classification', value: 'Terminal', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' },
+            { name: 'Switchyard', property: 'classification', value: 'Switchyard', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' },
+            { name: 'Transmission', property: 'classification', value: 'Transmission', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' }
+        ]
+    },
+    {
+        name: 'Transmission Lines',
+        subTypes: [
+            { name: 'Capacity < 132 kV', property: 'capacity_kv', value: '<132', url: process.env.PUBLIC_URL + '/data/Electricity_Transmission_Lines.geojson' },
+            { name: 'Capacity 132-220 kV', property: 'capacity_kv', value: '>=132<220', url: process.env.PUBLIC_URL + '/data/Electricity_Transmission_Lines.geojson' },
+            { name: 'Capacity 220-500 kV', property: 'capacity_kv', value: '>=220<500', url: process.env.PUBLIC_URL + '/data/Electricity_Transmission_Lines.geojson' },
+            { name: 'Capacity >= 500 kV', property: 'capacity_kv', value: '>=500', url: process.env.PUBLIC_URL + '/data/Electricity_Transmission_Lines.geojson' }
+        ]
+    },
+    {
+        name: 'Liquid Fuel Terminals',
+        subTypes: [
+            { name: 'Operational', property: 'operationalstatus', value: 'Operational', url: process.env.PUBLIC_URL + '/data/Liquid_Fuel_Terminals.geojson' },
+            { name: 'Decommissioned', property: 'operationalstatus', value: 'Decommissioned', url: process.env.PUBLIC_URL + '/data/Liquid_Fuel_Terminals.geojson' }
+        ]
+    },
+    {
         name: 'Oil Pipelines',
         subTypes: [
             { name: 'Oil pipeline', property: 'feature_type', value: 'Oil pipeline', url: process.env.PUBLIC_URL + '/data/Oil_Pipelines.geojson' },
@@ -55,32 +96,6 @@ const geoJsonFiles = [
         subTypes: [
             { name: 'Gas Pipeline', property: 'operational_status', value: 'Fully capable of operation.', url: process.env.PUBLIC_URL + '/data/Gas_Pipelines.geojson' },
             { name: 'Proposed Gas Pipeline', property: 'operational_status', value: 'Proposed infrastructure.', url: process.env.PUBLIC_URL + '/data/Gas_Pipelines.geojson' }
-        ]
-    },
-    {
-        name: 'Railway Lines',
-        subTypes: [
-            { name: 'Operational', property: 'operational_status', value: 'Operational', url: process.env.PUBLIC_URL + '/data/Railway_Lines.geojson' },
-            { name: 'Abandoned', property: 'operational_status', value: 'Abandoned', url: process.env.PUBLIC_URL + '/data/Railway_Lines.geojson' },
-            { name: 'Dismantled', property: 'operational_status', value: 'Dismantled', url: process.env.PUBLIC_URL + '/data/Railway_Lines.geojson' }
-        ]
-    },
-    {
-        name: 'Railway Stations',
-        subTypes: [
-            { name: 'Operational', property: 'operationalstatus', value: 'Operational', url: process.env.PUBLIC_URL + '/data/Railway_Stations.geojson' },
-            { name: 'Abandoned', property: 'operationalstatus', value: 'Abandoned', url: process.env.PUBLIC_URL + '/data/Railway_Stations.geojson' },
-            { name: 'Disused', property: 'operationalstatus', value: 'Disused', url: process.env.PUBLIC_URL + '/data/Railway_Stations.geojson' }
-        ]
-    },
-    {
-        name: 'Transmission Substation',
-        subTypes: [
-            { name: 'Substations', property: 'classification', value: 'Substations', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' },
-            { name: 'Zone', property: 'classification', value: 'Zone', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' },
-            { name: 'Terminal', property: 'classification', value: 'Terminal', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' },
-            { name: 'Switchyard', property: 'classification', value: 'Switchyard', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' },
-            { name: 'Transmission', property: 'classification', value: 'Transmission', url: process.env.PUBLIC_URL + '/data/Transmission_Substations.geojson' }
         ]
     },
     {
@@ -105,13 +120,6 @@ const geoJsonFiles = [
             { name: 'Inert Landfill', property: 'facility_infrastructure_type', value: 'INERT LANDFILL', url: process.env.PUBLIC_URL + '/data/Waste_Management_Facilities.geojson' },
             { name: 'CDS Drop-Off Facility', property: 'facility_infrastructure_type', value: 'CDS DROP-OFF FACILITY', url: process.env.PUBLIC_URL + '/data/Waste_Management_Facilities.geojson' },
             { name: 'Other', property: 'facility_infrastructure_type', value: 'OTHER', url: process.env.PUBLIC_URL + '/data/Waste_Management_Facilities.geojson' }
-        ]
-    },
-    {
-        name: 'Maritime Ports',
-        subTypes: [
-            { name: 'Commodity', property: 'application', value: 'Commodity', url: process.env.PUBLIC_URL + '/data/Major_Maritime_Ports.geojson' },
-            { name: 'Commodity & Military', property: 'application', value: 'Commodity, Military', url: process.env.PUBLIC_URL + '/data/Major_Maritime_Ports.geojson' }
         ]
     },
     {

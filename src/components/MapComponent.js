@@ -23,6 +23,9 @@ const icons = {
     'Airports Medium Airport': '/assets/images/airport2.png',
     'Airports Large Airport': '/assets/images/airport3.png',
     'Airports Heliport': '/assets/images/heliport.png',
+    'Intermodal Terminals Operational': '/assets/images/intermodal_terminal3.png',
+    'Intermodal Terminals Proposed': '/assets/images/intermodal_terminal2.png',
+    'Intermodal Terminals Closed': '/assets/images/intermodal_terminal1.png',
     'Liquid Fuel Terminals Operational': '/assets/images/fuel_terminal1.png',
     'Liquid Fuel Terminals Decommissioned': '/assets/images/fuel_terminal2.png',
     'Railway Stations Operational': '/assets/images/railway_station1.png',
@@ -120,11 +123,20 @@ const addGeoJSONLayer = (data, type, subType, property, value, searchText, map) 
         pointToLayer: (feature, latlng) => {
             const key = `${type} ${subType}`;
             const icon = icons[key];
+            console.log(`Using icon for key: ${key}`, icon); // Ensure correct icon is being used
+
             if (!icon) {
                 console.error(`Icon not found for key: ${key}`);
                 return L.marker(latlng);
             }
-            return L.marker(latlng, { icon: L.icon({ iconUrl: icon, iconSize: [15, 15] }) });
+
+            // Ensure L.icon is creating the icon instance correctly
+            const customIcon = L.icon({ iconUrl: icon, iconSize: [15, 15] });
+            console.log('Custom icon created:', customIcon); // Log the custom icon instance
+
+            return L.marker(latlng, { icon: customIcon });
+
+
         },
         onEachFeature: onEachFeature
     });
@@ -254,10 +266,6 @@ const MapComponent = ({ geoJsonFiles }) => {
                         Object.values(feature.properties).some(prop => {
                             const propString = String(prop).toLowerCase();
                             const termMatch = propString.includes(term);
-
-                            if (termMatch) {
-                                console.log(`Match found - Term: "${term}", Property: "${propString}"`);
-                            }
 
                             return termMatch;
                         })
