@@ -4,6 +4,4 @@
 * text=auto
 # Additional configuration lines (keep these as they are in your original file)
 
-# Remove or comment out any lines related to `.geojson` files in LFS:
-# public/data/Major_Roads.geojson filter=lfs diff=lfs merge=lfs -text
-# *.geojson filter=lfs diff=lfs merge=lfs -text
+
