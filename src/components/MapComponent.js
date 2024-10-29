@@ -89,21 +89,24 @@ const addGeoJSONLayer = (data, type, subType, property, value, searchText, map) 
 
     const filterFeature = (feature, file) => {
         let matchesProperty = false;
-        if (property === 'capacity_kv') {
-            const capacity = feature.properties[property];
-            if (value === '<132') matchesProperty = capacity < 132;
-            if (value === '>=132<220') matchesProperty = capacity >= 132 && capacity < 220;
-            if (value === '>=220<500') matchesProperty = capacity >= 220 && capacity < 500;
-            if (value === '>=500') matchesProperty = capacity >= 500;
-        } else if (value === 'Other') {
-            const specifiedValues = file.subTypes.map(sub => sub.value);
+
+        if (value === 'Other') {
+            // Collect all specified sub-type values for the current category
+            const specifiedValues = file.subTypes
+                .filter(sub => sub.value !== 'Other') // Exclude "Other" itself to avoid recursion
+                .map(sub => sub.value);
+
+            // Match only if the property value is NOT in the specified values
             matchesProperty = !specifiedValues.includes(feature.properties[property]);
         } else {
+            // Standard matching for non-"Other" sub-types
             matchesProperty = feature.properties[property] === value;
         }
 
         // Adjust searchText to handle multiple terms
-        const searchTerms = Array.isArray(searchText) ? searchText : searchText.split(',').map(term => term.trim().toLowerCase());
+        const searchTerms = Array.isArray(searchText)
+            ? searchText
+            : searchText.split(',').map(term => term.trim().toLowerCase());
 
         const matchesSearchText = searchTerms.some(term =>
             Object.values(feature.properties).some(propValue =>
@@ -113,6 +116,8 @@ const addGeoJSONLayer = (data, type, subType, property, value, searchText, map) 
 
         return matchesProperty && matchesSearchText;
     };
+
+
 
     const layer = L.geoJSON(data, {
         filter: (feature) => filterFeature(feature, { subTypes: [/* Provide necessary subTypes here */] }),
@@ -176,8 +181,28 @@ const MapComponent = ({ geoJsonFiles }) => {
             const div = L.DomUtil.create('div', 'info legend');
             div.innerHTML = '<h4>Legend</h4>';
 
+            const knownTypes = [
+                "Waste Management",
+                "Major Power Stations",
+                "Transmission Lines",
+                "Railway Stations",
+                "Airports",
+                "Intermodal Terminals",
+                "Maritime Ports",
+                "Railway Lines",
+                "Transmission Substation",
+                "Liquid Fuel Terminals",
+                "Oil Pipelines",
+                "Gas Pipelines",
+                "Mineral Deposits"
+                /* Add other types as needed */];
+
             activeLayers.forEach(layer => {
-                const layerName = layer.split(' ').slice(1).join(' ');
+                // Find the type from the known types list that matches the beginning of `layer`
+                const type = knownTypes.find(t => layer.startsWith(t));
+                const subType = layer.slice(type.length + 1); // Extract everything after the type and the following space
+                const layerName = `${type} - ${subType}`;
+
                 if (icons[layer]) {
                     div.innerHTML += `<i style="background-image: url(${icons[layer]}); width: 20px; height: 20px; display: inline-block;"></i> ${layerName}<br>`;
                 } else if (lineStyles[layer]) {
@@ -186,6 +211,9 @@ const MapComponent = ({ geoJsonFiles }) => {
                     div.innerHTML += `<svg width="20" height="10" style="display: inline-block;"><line x1="0" y1="5" x2="20" y2="5" style="stroke:${style.color}; stroke-width:2; ${dashArray}"></line></svg> ${layerName}<br>`;
                 }
             });
+
+
+
 
             return div;
         };
